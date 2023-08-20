@@ -10,11 +10,10 @@ import Dashboard from './components/layouts/dashboard';
 // import Login from './components/login/login';
 
 // Faq Management
-import addFaqs from './components/Contact/addContact';
-import ListFaq from './components/Contact/listContact';
-import editFaq from './components/Contact/editContact';
-import viewFaq from './components/Contact/viewContact';
-
+import listContact from './components/Contact/listContact';
+import addContact from './components/Contact/addContact';
+import viewContact from './components/Contact/viewContact';
+import editContact from './components/Contact/editContact';
 
 // Dynamic Tab Changes
 
@@ -35,10 +34,10 @@ class App extends React.Component {
       <Switch>
       <Route exact path="/" component={Dashboard}/>
       
-      <Route exact path="/addFaq" component={addFaqs}/>
-      <Route exact path="/listFaq" component={ListFaq}/>
-      <Route exact path='/editFaq/:id' component={editFaq}/>
-      <Route exact path='/viewFaq/:id' component={viewFaq}/>
+      <Route exact path="/addContact" component={addContact}/>
+      <Route exact path="/listContact" component={listContact}/>
+      <Route exact path='/eidtContact/:id' component={editContact}/>
+      <Route exact path='/viewContact/:id' component={viewContact}/>
 
       <Route exact path="/" component={Dashboard}/>
       </Switch>

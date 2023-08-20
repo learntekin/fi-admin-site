@@ -33,8 +33,8 @@ export default class Sidebar extends React.Component {
                         </a>
                         <div class="collapse" id="ui-basic">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <Link to="/addFaq" class="nav-link" >Add Contact</Link></li>
-                                <li class="nav-item"> <Link to="/listFaq" class="nav-link" >List Contact</Link></li>
+                                <li class="nav-item"> <Link to="/addContact" class="nav-link" >Add Contact</Link></li>
+                                <li class="nav-item"> <Link to="/listContact" class="nav-link" >List Contact</Link></li>
                             </ul>
                         </div>
                     </li>

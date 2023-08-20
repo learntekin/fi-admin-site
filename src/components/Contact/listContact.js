@@ -1,35 +1,40 @@
 import React from "react";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { AC_LIST_FAQ, AC_DELETE_FAQ } from '../actions/contact';
+import { AC_LIST_CONTACT, AC_DELETE_CONTACT } from '../actions/contact';
 import swal from 'sweetalert';
 import { Redirect } from 'react-router-dom'
 import { TabTitle } from "../util/DynamicTab";
-class listFaqs extends React.Component {
+class listContact extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            answer: '',
-            answerError: false,
-            answerCountError: false,
-            question: '',
-            questionError: false,
-            questionCountError: false,
-            status: '',
+            name: "",
+            nameError: false,
+            nameCountError: false,
+      
+            email: "",
+            emailError: false,
+            emailCountError: false,
+      
+            phonenumber: "",
+            phonenumberError: false,
+            phonenumberCountError: false,
+      
+            message: "",
+            messageError: false,
+            messageCountError: false,
+      
+            status: "",
             statusError: false,
-            faqId: '',
-            listFaq: true,
-            editFaq: false,
             editStatus: false,
-            editId: '',
-            viewId: ''
-        }
+          };
         this.delete = this.delete.bind(this);
-        this.editFaq = this.editFaq.bind(this);
-        this.viewFaq = this.viewFaq.bind(this);
+        this.editContact = this.editContact.bind(this);
+        this.viewContact = this.viewContact.bind(this);
     }
     delete(event) {
-        var faqId = event.target.id;
+        var contactId = event.target.id;
         swal({
             title: "Are you sure?",
             text: "Once deleted, the file will deleted permanently!",
@@ -39,61 +44,61 @@ class listFaqs extends React.Component {
         })
         .then((willDelete) => {
             if (willDelete) {
-                this.deleteFaq(faqId);
-                swal("Faq Deleted Successfully!", {
+                this.deleteContact(contactId);
+                swal("Contact Deleted Successfully!", {
                     buttons: false,
                     icon: "success",
                 })
             } else {
-                swal('Faq not deleted!',);
+                swal('Contact not deleted!',);
             }
         });
     }
-    deleteFaq(faqId) {
+    deleteContact(contactId) {
         var formData = {
-            id: faqId
+            id: contactId
         }
-        this.props.AC_LIST_FAQ();
-        this.props.AC_DELETE_FAQ(formData);
-        this.props.AC_VIEW_FAQ();
+        this.props.AC_LIST_CONTACT();
+        this.props.AC_DELETE_CONTACT(formData);
+        this.props.AC_VIEW_CONTACT();
     }
     componentDidMount() {
-        this.props.AC_LIST_FAQ();
+        this.props.AC_LIST_CONTACT();
     }
-    editFaq(event) {
-        let faqId = event.target.id;
-        this.setState({ editStatus: true, editId: faqId })
+    editContact(event) {
+        let contactId = event.target.id;
+        this.setState({ editStatus: true, editId: contactId })
     }
-    viewFaq(event) {
-        let faqId = event.target.id;
-        this.setState({ viewStatus: true, viewId: faqId })
+    viewContact(event) {
+        let contactId = event.target.id;
+        this.setState({ viewStatus: true, viewId: contactId })
     }
     render() {
         if (this.state.editStatus) {
-            return <Redirect to={"/editFaq/" + this.state.editId} />
+            return <Redirect to={"/editContact/" + this.state.editId} />
         }
         else if (this.state.viewStatus) {
-            return <Redirect to={"/viewFaq/" + this.state.viewId} />
+            return <Redirect to={"/viewContact/" + this.state.viewId} />
         }
-        var TotalFaq = 0;
+        var TotalContact = 0;
         var Active = 0;
         var Inactive = 0;
-        var faqList = this.props.faqsReducer.faqList;
-        if (faqList) {
+        var contactList = this.props.contactReducer.contactList;
+        if (contactList) {
             Active = 0;
-            TotalFaq = faqList.length;
+            TotalContact = contactList.length;
             Inactive = 0;
         }
-        var Faq = this.props.faqsReducer.faqList;
-        console.log("=-=-=-table=", Faq)
+        var Contact = this.props.contactReducer.contactList;
+        console.log("=-=-=-table=", Contact)
         var resultArray = [];
-        if (Faq == 0) {
+        if (Contact == 0) {
             resultArray.push(<label>No data found</label>)
         }
         else {
-            for (var i = 0; i < Faq.length; i++) {
+            for (var i = 0; i < Contact.length; i++) {
                 var tempVal = "";
-                if (Faq[i].status) {
+                if (Contact[i].status) {
                     tempVal = "Active";
                     Active++;
                 } else {
@@ -102,19 +107,21 @@ class listFaqs extends React.Component {
                 }
                 resultArray.push(<tr key={i} >
                     <th scope="row">{i + 1}</th>
-                    <td>{Faq[i].question}</td>
-                    <td>{Faq[i].answer}</td>
+                    <td>{Contact[i].name}</td>
+                    <td>{Contact[i].email}</td>
+                    <td>{Contact[i].phonenumber}</td>
+                    <td>{Contact[i].message}</td>
                     <td>{tempVal}</td>
                     <td>
-                        <button type="button" id={Faq[i]._id} onClick={this.viewFaq} class="btn btn-primary m-2">View</button>
-                        <button type="button" id={Faq[i]._id} onClick={this.editFaq} class="btn btn-success m-2">Edit</button>
-                        <button type="button" id={Faq[i]._id} onClick={this.delete} class="btn btn-danger m-2">Delete</button>
+                        <button type="button" id={Contact[i]._id} onClick={this.viewContact} class="btn btn-primary m-2">View</button>
+                        <button type="button" id={Contact[i]._id} onClick={this.editContact} class="btn btn-success m-2">Edit</button>
+                        <button type="button" id={Contact[i]._id} onClick={this.delete} class="btn btn-danger m-2">Delete</button>
                     </td>
                 </tr>
                 )
             }
         }
-        TabTitle('List Faq');
+        TabTitle('List Contact');
         return (
             <>
                 <div class="main-panel" >
@@ -140,7 +147,7 @@ class listFaqs extends React.Component {
                                         <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
                                         <h4 class="font-weight-normal mb-3">Total Contact <i class="mdi mdi-chart-line mdi-24px float-right"></i>
                                         </h4>
-                                        <h2 class="mb-5">{TotalFaq}</h2>
+                                        <h2 class="mb-5">{TotalContact}</h2>
                                     </div>
                                 </div>
                             </div>
@@ -194,11 +201,11 @@ class listFaqs extends React.Component {
 function mapStateToProps(state) {
     console.log('map state', state);
     return {
-        faqsReducer: state.FAQ_Reducer
+        contactReducer: state.CONTACT_Reducer
     }
 }
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ AC_LIST_FAQ, AC_DELETE_FAQ }, dispatch)
+    return bindActionCreators({ AC_LIST_CONTACT, AC_DELETE_CONTACT }, dispatch)
 }
-export default connect(mapStateToProps, mapDispatchToProps)(listFaqs);
+export default connect(mapStateToProps, mapDispatchToProps)(listContact);
 

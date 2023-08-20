@@ -1,8 +1,7 @@
 import { combineReducers } from "redux";
-import FAQ_Reducer from "./reducers/faqred";
-
+import CONTACT_Reducer from "./reducers/contactred";
 const rootReducer=combineReducers({
-    FAQ_Reducer,
+    CONTACT_Reducer,
  
 })
 export default rootReducer;

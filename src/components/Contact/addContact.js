@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 import swal from 'sweetalert';
 import { TabTitle } from '../util/DynamicTab';
 
-class addFaqs extends React.Component {
+class addContact extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,6 +20,10 @@ class addFaqs extends React.Component {
       phonenumber: '',
       phonenumberError: false,
       phonenumberCountError: false,
+
+      message: '',
+      messageError: false,
+      messageCountError: false,
 
       status: '',
       statusError: false,
@@ -37,6 +41,7 @@ class addFaqs extends React.Component {
     const name = this.state.name;
     const email = this.state.email;
     const phonenumber = this.state.phonenumber;
+    const message = this.state.message;
     const status = this.state.status;
 // name
     if (name) {
@@ -52,7 +57,7 @@ class addFaqs extends React.Component {
     }
 // email
     if (email) {
-      if (answer.length < 1) {
+      if (email.length < 1) {
         this.setState({ emailError: false, emailCountError: true })
       }
       else {
@@ -64,7 +69,7 @@ class addFaqs extends React.Component {
     }
 // phonenumber
     if (phonenumber) {
-      if (answer.length < 1) {
+      if (phonenumber.length < 1) {
         this.setState({ phonenumberError: false, phonenumberCountError: true })
       }
       else {
@@ -73,6 +78,18 @@ class addFaqs extends React.Component {
     }
     else {
       this.setState({ phonenumberError: true, phonenumberCountError: false })
+    }
+    // message
+    if (message) {
+      if (message.length < 1) {
+        this.setState({ messageError: false, messageCountError: true })
+      }
+      else {
+        this.setState({ messageError: false, messageCountError: false })
+      }
+    }
+    else {
+      this.setState({ messageError: true, messageCountError: false })
     }
 
     if (status) {
@@ -94,53 +111,93 @@ class addFaqs extends React.Component {
           buttons: false,
           timer: 2000,
         });
-        this.setState({ name: '', email: '', phonenumber: '', status: '' });
+        this.setState({ name: '', email: '', phonenumber: '',message:'', status: '' });
       // }
       const formData = {
         name: name,
         email: email,
         phonenumber: phonenumber,
+        message: message,
         status: tempVal
       }
       this.props.AC_ADD_CONTACT(formData);
       console.log('========Add Contact========', formData)
     }
   }
+
   handleInputChange(event) {
-    const questionid = event.target.id;
-    const questionvalue = event.target.value;
-    const answerid = event.target.id;
-    const answervalue = event.target.value;
+    const nameid = event.target.id;
+    const namevalue = event.target.value;
+
+    const emailid = event.target.id;
+    const emailvalue = event.target.value;
+
+    const phonenumberid = event.target.id;
+    const phonenumbervalue = event.target.value;
+
+    const messageid = event.target.id;
+    const messagevalue = event.target.value;
+
     const statusid = event.target.id;
     const statusvalue = event.target.value;
-
-    if (questionid == "question") {
-      this.setState({ question: questionvalue })
-      if (questionvalue) {
-        if (questionvalue.length < 5) {
-          this.setState({ questionError: false, questionCountError: true })
+// name
+    if (nameid == "name") {
+      this.setState({ name: namevalue })
+      if (namevalue) {
+        if (namevalue.length < 5) {
+          this.setState({ nameError: false, nameCountError: true })
         }
         else {
-          this.setState({ questionError: false, questionCountError: false })
+          this.setState({ nameError: false, nameCountError: false })
         }
       }
       else {
-        this.setState({ questionError: true, questionCountError: false })
+        this.setState({ nameError: true, nameCountError: false })
       }
     }
-
-    if (answerid == "answer") {
-      this.setState({ answer: answervalue })
-      if (answervalue) {
-        if (answervalue.length < 5) {
-          this.setState({ answerError: false, answerCountError: true })
+// email
+    if (emailid == "email") {
+      this.setState({ email: emailvalue })
+      if (emailvalue) {
+        if (emailvalue.length < 5) {
+          this.setState({ emailError: false, emailCountError: true })
         }
         else {
-          this.setState({ answerError: false, answerCountError: false })
+          this.setState({ emailError: false, emailCountError: false })
         }
       }
       else {
-        this.setState({ answerError: true, answerCountError: false })
+        this.setState({ emailError: true, emailCountError: false })
+      }
+    }
+// phonenumber
+    if (phonenumberid == "phonenumber") {
+      this.setState({ phonenumber: phonenumbervalue })
+      if (phonenumbervalue) {
+        if (phonenumbervalue.length < 5) {
+          this.setState({ phonenumberError: false, phonenumberCountError: true })
+        }
+        else {
+          this.setState({ phonenumberError: false, phonenumberCountError: false })
+        }
+      }
+      else {
+        this.setState({ phonenumberError: true, phonenumberCountError: false })
+      }
+    }
+// message
+    if (messageid == "message") {
+      this.setState({ message: messagevalue })
+      if (messagevalue) {
+        if (messagevalue.length < 5) {
+          this.setState({ messageError: false, messageCountError: true })
+        }
+        else {
+          this.setState({ messageError: false, messageCountError: false })
+        }
+      }
+      else {
+        this.setState({ messageError: true, messageCountError: false })
       }
     }
 
@@ -157,30 +214,40 @@ class addFaqs extends React.Component {
 
   render() {
     if (this.state.editStatus) {
-      return <Redirect to='/listFaq' />
+      return <Redirect to='/listContact' />
     }
     TabTitle("Add Faq");
     return (
       <div class="container-fluid pages" style={{ width: '600px', marginRight: '611px' }}>
         <h3 class="page-title"><span class="page-title-icon bg-gradient-primary text-white me-2" style={{ marginLeft: '37px', marginTop: '47px' }}><i class="mdi mdi-comment-plus-outline"></i></span>Add Contact</h3>
+        
         <div class="col-12 grid-margin stretch-card">
           <div class="card" >
             <div class="card-body">
-              <form class="forms-sample" autoComplete='off'>
+              <form class="forms-sample" autoComplete='on'>
+
                 <div class="form-group">
                   <h5 style={{ fontSize: '0.875rem' }}>Name</h5>
-                  <input type="text" placeholder="Question" id="question" value={this.state.title} onChange={this.handleInputChange} class="form-control" ></input>
-                  {this.state.questionError ? <label class="mt-2" style={{ color: 'red' }}>Question is required</label> : ""}
+                  <input type="text" placeholder="Name" id="name" value={this.state.name} onChange={this.handleInputChange} class="form-control" ></input>
+                  {this.state.nameError ? <label class="mt-2" style={{ color: 'red' }}>Name is required</label> : ""}
                 </div>
+
                 <div class="form-group">
-                  <h4 style={{ fontSize: '0.875rem' }}>Email</h4>
-                  <input type="text" placeholder="Answer" id="answer" value={this.state.answer} onChange={this.handleInputChange} class="form-control" ></input>
-                  {this.state.answerError ? <label class="mt-2" style={{ color: 'red' }}>Answer is required</label> : ""}
+                  <h5 style={{ fontSize: '0.875rem' }}>E - Mail</h5>
+                  <input type="text" placeholder="E-Mail" id="email" value={this.state.email} onChange={this.handleInputChange} class="form-control" ></input>
+                  {this.state.emailError ? <label class="mt-2" style={{ color: 'red' }}>Email is required</label> : ""}
                 </div>
+
                 <div class="form-group">
                   <h4 style={{ fontSize: '0.875rem' }}>Phone Number</h4>
-                  <input type="text" placeholder="Answer" id="answer" value={this.state.answer} onChange={this.handleInputChange} class="form-control" ></input>
-                  {this.state.answerError ? <label class="mt-2" style={{ color: 'red' }}>Answer is required</label> : ""}
+                  <input type="text" placeholder="Phone Number" id="phonenumber" value={this.state.phonenumber} onChange={this.handleInputChange} class="form-control" ></input>
+                  {this.state.phonenumberError ? <label class="mt-2" style={{ color: 'red' }}>Phone number is required</label> : ""}
+                </div>
+
+                <div class="form-group">
+                  <h4 style={{ fontSize: '0.875rem' }}>Message</h4>
+                  <input type="text" placeholder="Message" id="message" value={this.state.message} onChange={this.handleInputChange} class="form-control" ></input>
+                  {this.state.messageError ? <label class="mt-2" style={{ color: 'red' }}>Message is required</label> : ""}
                 </div>
                 
                 <div class="form-group">
@@ -205,10 +272,10 @@ class addFaqs extends React.Component {
 function mapStateToProps(state) {
   console.log('map state', state);
   return {
-    faqsReducer: state.FAQ_Reducer
+    contactReducer: state.CONTACT_Reducer
   }
 }
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ AC_LIST_CONTACT, AC_ADD_CONTACT }, dispatch)
 }
-export default connect(mapStateToProps, mapDispatchToProps)(addFaqs);
+export default connect(mapStateToProps, mapDispatchToProps)(addContact);
