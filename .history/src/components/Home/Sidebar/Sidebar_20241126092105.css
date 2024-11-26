@@ -1,0 +1,8 @@
+.sidebar-menu li a {
+    text-decoration: none;
+    color: #ecf0f1; /* Light color for dark background */
+    font-size: 16px;
+    display: block;
+    padding: 10px 20px;
+  }
+  

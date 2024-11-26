@@ -1,0 +1,56 @@
+ /* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.navbar-brand {
+    font-size: 24px;
+}
+
+.navbar-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+/* Sidebar styles */
+.sidebar {
+    height: 100%;
+    width: 200px;
+    background-color: #f4f4f4;
+    position: fixed;
+    left: -200px; /* Initially hidden */
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    transition: left 0.3s; /* Smooth transition effect */
+}
+
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #333;
+    display: block;
+}
+
+.sidebar a:hover {
+    background-color: #ddd;
+}
+
+/* Content area styles */
+.content {
+    margin-left: 0; /* Adjust according to sidebar width */
+    padding: 20px;
+}
