@@ -1,0 +1,83 @@
+/* Sidebar styling */
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  position: fixed;
+  top: 120px; /* Adjust for Navbar */
+  left: -200px; /* Initially hidden off-screen */
+  background-color: #2c3e50;
+  padding-top: 60px; /* Adjust for Navbar */
+  color: white;
+  z-index: 1000;
+  transition: left 0.3s ease-in-out; /* Smooth transition for showing and hiding */
+}
+
+/* Show the sidebar when it has the 'open' class */
+.sidebar.open {
+  left: 0; /* Move sidebar into view */
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 10px 20px;
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.sidebar ul li a:hover {
+  background-color: #34495e;
+}
+
+/* Button to toggle sidebar */
+.sidebar-toggle {
+  position: fixed;
+  top: 130px;
+  left: 150px;
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  z-index: 1001; /* Ensure it's above the sidebar */
+  font-size: 16px;
+}
+
+.sidebar-toggle:hover {
+  background-color: #34495e;
+}
+
+/* Optional: Add media query for responsiveness */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 250px; /* Adjust width for mobile */
+  }
+
+  .sidebar-toggle {
+    top: 140px;
+    left: 190px;
+    font-size: 14px; /* Smaller font size for the toggle button */
+  }
+}
+
+/* Medium devices (tablets) */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 25%;
+  }
+
+  .sidebar-toggle {
+    top: 24%;
+    left: calc(25% + 10px);
+    font-size: 0.9rem;
+  }
+}
+
+
+

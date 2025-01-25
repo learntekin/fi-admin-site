@@ -1,0 +1,95 @@
+/* Sidebar styling */
+.sidebar {
+  width: 250px; /* Adjust width */
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: -250px; /* Initially hidden off-screen */
+  background-color: #2c3e50;
+  padding-top: 60px; /* Adjust for Navbar */
+  color: white;
+  z-index: 1000;
+  transition: left 0.3s ease-in-out; /* Smooth transition for showing and hiding */
+}
+
+/* Show the sidebar when it has the 'open' class */
+.sidebar.open {
+  left: 0; /* Move sidebar into view */
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  padding: 10px 20px;
+}
+
+.sidebar ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.sidebar ul li a:hover {
+  background-color: #34495e;
+}
+
+/* Button to toggle sidebar */
+.sidebar-toggle {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  z-index: 1001; /* Ensure it's above the sidebar */
+  font-size: 18px;
+}
+
+.sidebar-toggle:hover {
+  background-color: #34495e;
+}
+
+/* Optional: Add media query for responsiveness */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 200px; /* Adjust width for tablet screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 250px; /* Adjust width for mobile */
+  }
+
+  .sidebar-toggle {
+    top: 10px; /* Adjust position of button for smaller screens */
+    left: 10px;
+    font-size: 14px; /* Smaller font size for the toggle button */
+  }
+
+  /* Adjust sidebar for smaller mobile screens */
+  .sidebar ul li {
+    font-size: 14px;
+  }
+}
+
+/* For very small screens (e.g., mobile in landscape mode) */
+@media (max-width: 480px) {
+  .sidebar {
+    width: 200px; /* Narrow the sidebar for small devices */
+  }
+
+  .sidebar-toggle {
+    top: 10px;
+    left: 10px;
+    font-size: 12px; /* Even smaller button font size for very small screens */
+  }
+
+  .sidebar ul li {
+    font-size: 12px; /* Reduce font size for mobile */
+  }
+}
